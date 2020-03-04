@@ -4,7 +4,7 @@ import SignedIn from './SignedIn';
 import NotSignedIn from './NotSignedIn';
 
 function Homepage() {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   if (isLoggedIn) {
     return <SignedIn />;
