@@ -1,15 +1,27 @@
-import React from 'react';
-import '../App.css';
-import SignedIn from './SignedIn';
-import NotSignedIn from './NotSignedIn';
+import React from "react";
+import "../App.css";
+import SignedIn from "./SignedIn";
+import NotSignedIn from "./NotSignedIn";
 
-function Homepage() {
-  const isLoggedIn = false;
-
-  if (isLoggedIn) {
-    return <SignedIn />;
+class Homepage extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      isLoggedIn: false
+    };
+    this.handleLogin = this.handleLogin.bind(this);
   }
-  return <NotSignedIn />;
+
+  handleLogin() {
+    this.setState({ isLoggedIn: true });
+  }
+
+  render() {
+    if (this.state.isLoggedIn) {
+      return <SignedIn />;
+    }
+    return <NotSignedIn handleLogin={this.handleLogin} />;
+  }
 }
 
 export default Homepage;

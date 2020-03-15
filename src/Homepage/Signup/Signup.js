@@ -37,10 +37,7 @@ class Signup extends React.Component {
     };
 
     axios
-      .post(
-        process.env.REACT_APP_SIGNUP_API,
-        data
-      )
+      .post(process.env.REACT_APP_SIGNUP_API, data)
       .then(res => {
         this.formRef.current.reset();
         this.setState({ success: true });
@@ -50,7 +47,7 @@ class Signup extends React.Component {
       })
       .catch(err => {
         this.setState({ showError: true });
-        setTimeout(() => this.setState({showError: false}), 10000);
+        setTimeout(() => this.setState({ showError: false }), 10000);
       })
       .then(() => {
         this.setState({ formDisabled: false });
@@ -106,7 +103,11 @@ class Signup extends React.Component {
               placeholder="Username"
               disabled={this.state.formDisabled}
             />
-            <Form.Text className={"text-danger "+ (this.state.showError ? '' : 'd-none')}>
+            <Form.Text
+              className={
+                "text-danger " + (this.state.showError ? "" : "d-none")
+              }
+            >
               Username may already be taken.
             </Form.Text>
           </Form.Group>

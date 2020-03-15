@@ -1,17 +1,17 @@
-import React from 'react';
-import '../App.css';
-import Login from './Login/Login.js';
-import Signup from './Signup/Signup.js';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import React from "react";
+import "../App.css";
+import Login from "./Login/Login.js";
+import Signup from "./Signup/Signup.js";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-function NotSignedIn() {
+function NotSignedIn(props) {
   return (
     <div>
       <Row>
         <Col>
           <h1>Log In</h1>
-          <Login />
+          <Login handleLogin={props.handleLogin} />
         </Col>
         <Col>
           <h1>Sign Up</h1>
@@ -19,7 +19,7 @@ function NotSignedIn() {
         </Col>
       </Row>
     </div>
-  )
+  );
 }
 
 export default NotSignedIn;
