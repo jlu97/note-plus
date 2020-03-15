@@ -1,0 +1,8 @@
+.signup-container {
+  width: 300px;
+}
+.toast {
+  position: absolute;
+  right: 30px;
+  top: 0;
+}

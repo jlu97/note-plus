@@ -23,8 +23,14 @@ class UploadNote extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <h1>Upload Note</h1>
-        <Form.Control type="file" ref={this.fileInput} />
-        <br />
+        <Form.Group>
+          <Form.Label>Title</Form.Label>
+          <Form.Control type="text" placeholder="Title"/>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Control type="file" ref={this.fileInput} />
+        </Form.Group>
         <Button type="submit">Submit</Button>
       </Form>
     );
