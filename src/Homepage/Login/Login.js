@@ -4,8 +4,11 @@ import "./Login.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
+import AuthContext from "../../AuthContext"
 
 class Login extends React.Component {
+  static contextType = AuthContext;
+
   constructor(props) {
     super();
     this.props = props;
@@ -32,8 +35,8 @@ class Login extends React.Component {
       .then(res => {
         this.formRef.current.reset();
         this.setState({ formDisabled: false });
-        localStorage.setItem("jwt", res.data.token);
-        this.props.handleLogin();
+        // handleLogin(isLoggedIn, authToken)
+        this.context.handleLogin(true, res.data.token);
       })
       .catch(err => {
         this.setState({ showError: true });
@@ -66,11 +69,13 @@ class Login extends React.Component {
               disabled={this.state.formDisabled}
             />
           </Form.Group>
+
           <Form.Text
             className={"text-danger " + (this.state.showError ? "" : "d-none")}
           >
             Please try again.
           </Form.Text>
+
           <Button
             variant="primary"
             type="submit"

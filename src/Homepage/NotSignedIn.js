@@ -5,13 +5,13 @@ import Signup from "./Signup/Signup.js";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-function NotSignedIn(props) {
+function NotSignedIn() {
   return (
     <div>
       <Row>
         <Col>
           <h1>Log In</h1>
-          <Login handleLogin={props.handleLogin} />
+          <Login  />
         </Col>
         <Col>
           <h1>Sign Up</h1>

@@ -2,26 +2,16 @@ import React from "react";
 import "../App.css";
 import SignedIn from "./SignedIn";
 import NotSignedIn from "./NotSignedIn";
+import AuthContext from "../AuthContext.js"
+import {useContext} from 'react';
 
-class Homepage extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      isLoggedIn: false
-    };
-    this.handleLogin = this.handleLogin.bind(this);
-  }
+function Homepage(){
+  const context = useContext(AuthContext);
 
-  handleLogin() {
-    this.setState({ isLoggedIn: true });
+  if (context.isLoggedIn) {
+    return <SignedIn />;
   }
-
-  render() {
-    if (this.state.isLoggedIn) {
-      return <SignedIn />;
-    }
-    return <NotSignedIn handleLogin={this.handleLogin} />;
-  }
+  return <NotSignedIn />;
 }
 
 export default Homepage;
