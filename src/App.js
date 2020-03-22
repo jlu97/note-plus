@@ -57,9 +57,7 @@ class App extends React.Component {
           {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
           <Switch>
-            <PrivateRoute path="/course">
-              <Course />
-            </PrivateRoute>
+            <PrivateRoute path="/course/:courseId" component={Course}/>
 
             <PrivateRoute path="/upload">
               <UploadNote />

@@ -34,14 +34,14 @@ class SignedIn extends React.Component {
         this.setState({
           loading: false,
           showError: true
-        })
+        });
       });
   }
 
   render() {
     const favCourses = this.state.favCourses.map(fav => (
-      <li key={fav.toString()}>
-        <Link to="/course">{fav}</Link>
+      <li key={fav}>
+        <Link to={"/course/" + fav}>{fav}</Link>
       </li>
     ));
 
@@ -52,7 +52,7 @@ class SignedIn extends React.Component {
         </Spinner>
       );
     } else if (this.state.showError) {
-      return (<p>Please refresh the page.</p>)
+      return <p>Please logout and try again.</p>;
     } else {
       return (
         <div>
