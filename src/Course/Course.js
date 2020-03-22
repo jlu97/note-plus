@@ -14,6 +14,7 @@ class Course extends React.Component {
     this.props = props;
     this.state = {
       courseName: "",
+      courseNotes: [],
       loading: true,
       showError: false
     };
@@ -28,6 +29,7 @@ class Course extends React.Component {
       .then(res => {
         this.setState({
           courseName: res.data.course_name,
+          courseNotes: res.data.notes,
           loading: false,
           showError: false
         });
@@ -41,6 +43,18 @@ class Course extends React.Component {
   }
 
   render() {
+    const noteRows = this.state.courseNotes.map((noteId, index) => {
+      return (
+        <tr key={index.toString()}>
+          <td>
+            <Link to={"/note/" + noteId}>{noteId}</Link>
+          </td>
+          <td>01/01/20</td>
+          <td>Jayson Isaac</td>
+        </tr>
+      );
+    });
+
     if (this.state.loading) {
       return (
         <Spinner animation="border" role="status">
@@ -62,18 +76,16 @@ class Course extends React.Component {
           <br />
 
           <Table>
-            <tr>
-              <th>Title</th>
-              <th>Date</th>
-              <th>Author</th>
-            </tr>
-            <tr>
-              <td>
-                <Link to="/note">Lorem Ipsum</Link>
-              </td>
-              <td>01/01/20</td>
-              <td>Jayson Isaac</td>
-            </tr>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Author</th>
+              </tr>
+            </thead>
+            <tbody>
+              { noteRows }
+            </tbody>
           </Table>
         </div>
       );
