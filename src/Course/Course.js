@@ -83,9 +83,7 @@ class Course extends React.Component {
                 <th>Author</th>
               </tr>
             </thead>
-            <tbody>
-              { noteRows }
-            </tbody>
+            <tbody>{noteRows}</tbody>
           </Table>
         </div>
       );

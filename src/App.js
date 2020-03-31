@@ -59,12 +59,10 @@ class App extends React.Component {
           <Switch>
             <PrivateRoute path="/course/:courseId" component={Course}/>
 
+            <PrivateRoute path="/note/:noteId" component={Note}/>
+
             <PrivateRoute path="/upload">
               <UploadNote />
-            </PrivateRoute>
-
-            <PrivateRoute path="/note">
-              <Note />
             </PrivateRoute>
 
             <Route path="/">
