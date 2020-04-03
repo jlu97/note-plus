@@ -57,13 +57,12 @@ class App extends React.Component {
           {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
           <Switch>
-            <PrivateRoute path="/course/:courseId" component={Course}/>
-
-            <PrivateRoute path="/note/:noteId" component={Note}/>
-
-            <PrivateRoute path="/upload">
-              <UploadNote />
-            </PrivateRoute>
+            <PrivateRoute
+              path="/course/:courseId/upload"
+              component={UploadNote}
+            />
+            <PrivateRoute path="/course/:courseId" component={Course} />
+            <PrivateRoute path="/note/:noteId" component={Note} />
 
             <Route path="/">
               <Homepage />
