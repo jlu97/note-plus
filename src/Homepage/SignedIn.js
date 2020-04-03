@@ -58,6 +58,9 @@ class SignedIn extends React.Component {
         <div>
           <h3>Favorite Courses</h3>
           <ul>{favCourses}</ul>
+          <Link to="/editor">
+            <button>Editor</button>
+          </Link>
         </div>
       );
     }

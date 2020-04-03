@@ -13,6 +13,8 @@ import UploadNote from "./Note/UploadNote";
 import Note from "./Note/Note";
 import Navbar from "react-bootstrap/navbar";
 import AuthContext from "./AuthContext.js";
+import Reporting from './Note/Reporting';
+import Editor from './Homepage/Editor/Editor.js';
 
 class App extends React.Component {
   constructor() {
@@ -65,6 +67,14 @@ class App extends React.Component {
 
             <PrivateRoute path="/note">
               <Note />
+            </PrivateRoute>
+
+            <PrivateRoute path="/reporting">
+              <Reporting />
+            </PrivateRoute>
+
+            <PrivateRoute path="/editor">
+              <Editor />
             </PrivateRoute>
 
             <Route path="/">

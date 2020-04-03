@@ -4,3 +4,11 @@
   margin-right: auto;
   display: block;
 }
+
+.report-button {
+  color: white;
+  background-color: red;
+  font-size: 20px;
+  border-radius: 8px;
+  font-weight: bold;
+}
