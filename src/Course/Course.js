@@ -64,12 +64,13 @@ class Course extends React.Component {
     } else if (this.state.showError) {
       return <p>Please logout and try again.</p>;
     } else {
+      const courseId = this.props.match.params.courseId;
       return (
         <div>
           <h1>{this.state.courseName}</h1>
           <h2>Notes</h2>
           <br />
-          <Link to="/upload">
+          <Link to={"/course/" + courseId + "/upload"}>
             <Button>Upload Note</Button>
           </Link>
           <br />
@@ -83,9 +84,7 @@ class Course extends React.Component {
                 <th>Author</th>
               </tr>
             </thead>
-            <tbody>
-              { noteRows }
-            </tbody>
+            <tbody>{noteRows}</tbody>
           </Table>
         </div>
       );

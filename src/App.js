@@ -39,33 +39,39 @@ class App extends React.Component {
       isLoggedIn: false,
       authToken: null
     });
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("isLoggedIn");
   }
 
   render() {
+    let logoutButton;
+    if (this.state.isLoggedIn) {
+      logoutButton = (
+        <Navbar.Text className="ml-auto">
+          <Link to="/" onClick={this.logout}>
+            Logout
+          </Link>
+        </Navbar.Text>
+      );
+    }
+
     return (
       <AuthContext.Provider value={this.state}>
         <Router>
           <Navbar bg="dark" variant="dark">
             <Navbar.Brand href="/">Note+</Navbar.Brand>
-            <Navbar.Text className="ml-auto">
-              <Link to="/" onClick={this.logout}>
-                Logout
-              </Link>
-            </Navbar.Text>
+            {logoutButton}
           </Navbar>
 
           {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
           <Switch>
-            <PrivateRoute path="/course/:courseId" component={Course}/>
-
-            <PrivateRoute path="/upload">
-              <UploadNote />
-            </PrivateRoute>
-
-            <PrivateRoute path="/note">
-              <Note />
-            </PrivateRoute>
+            <PrivateRoute
+              path="/course/:courseId/upload"
+              component={UploadNote}
+            />
+            <PrivateRoute path="/course/:courseId" component={Course} />
+            <PrivateRoute path="/note/:noteId" component={Note} />
 
             <Route path="/">
               <Homepage />
