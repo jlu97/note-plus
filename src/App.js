@@ -39,19 +39,28 @@ class App extends React.Component {
       isLoggedIn: false,
       authToken: null
     });
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("isLoggedIn");
   }
 
   render() {
+    let logoutButton;
+    if (this.state.isLoggedIn) {
+      logoutButton = (
+        <Navbar.Text className="ml-auto">
+          <Link to="/" onClick={this.logout}>
+            Logout
+          </Link>
+        </Navbar.Text>
+      );
+    }
+
     return (
       <AuthContext.Provider value={this.state}>
         <Router>
           <Navbar bg="dark" variant="dark">
             <Navbar.Brand href="/">Note+</Navbar.Brand>
-            <Navbar.Text className="ml-auto">
-              <Link to="/" onClick={this.logout}>
-                Logout
-              </Link>
-            </Navbar.Text>
+            {logoutButton}
           </Navbar>
 
           {/* A <Switch> looks through its children <Route>s and
