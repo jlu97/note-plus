@@ -55,6 +55,10 @@ class Note extends React.Component {
   }
 
   render() {
+    if (this.state.showError){
+      return <p>Please logout and try again.</p>
+    }
+
     const noteBody = this.state.noteBody.map((page, index) => {
       return (
         <iframe
