@@ -1,8 +1,12 @@
 import React from 'react';
 import '../../App.css';
+import './Editor.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import './Editor.css';
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
+
+window.katex = katex;
 
 class Editor extends React.Component {
   constructor(props) {
@@ -18,10 +22,11 @@ class Editor extends React.Component {
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
       [{ 'color': [] }, { 'background': [] }],
       [{'align': [] }, {'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+      ['code-block'],
       ['link', 'image', 'formula'],
       ['clean']
     ],
-    //formula: true
+    formula: true
   }
 
   formats = [
@@ -29,6 +34,7 @@ class Editor extends React.Component {
     'bold', 'italic', 'underline', 'strike', 'blockquote',
     'color', 'background',
     'align', 'list', 'bullet', 'indent',
+    'code-block',
     'link', 'image', 'formula'
   ]
 
