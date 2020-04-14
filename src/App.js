@@ -15,6 +15,7 @@ import Navbar from "react-bootstrap/navbar";
 import AuthContext from "./AuthContext.js";
 import Reporting from './Note/Reporting';
 import Editor from './Homepage/Editor/Editor.js';
+import ReturnNote from './Homepage/Editor/ReturnNote';
 
 class App extends React.Component {
   constructor() {
@@ -75,6 +76,10 @@ class App extends React.Component {
 
             <PrivateRoute path="/editor">
               <Editor />
+            </PrivateRoute>
+
+            <PrivateRoute path="/returnNote">
+              <ReturnNote />
             </PrivateRoute>
 
             <Route path="/">

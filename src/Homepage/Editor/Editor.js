@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import '../../App.css';
 import './Editor.css';
 import ReactQuill from 'react-quill';
@@ -14,6 +15,7 @@ class Editor extends React.Component {
     this.state = {
       text: "",
     }
+    this.rteChange = this.rteChange.bind(this);
   }
 
   modules = {
@@ -38,14 +40,30 @@ class Editor extends React.Component {
     'link', 'image', 'formula'
   ]
 
+  // save delta object in deltaObj when user make change
+  rteChange = (content, delta, source, editor) => {
+    var deltaObj = editor.getContents();
+    console.log(deltaObj); // delta object
+		//console.log(editor.getHTML()); // rich text
+		//console.log(editor.getText()); // plain text
+		//console.log(editor.getLength()); // number of characters
+	}
+
+  // just need to save deltaObj in the database when the save button is pressed.
+  // now the save note button only return an html with sample delta object.
   render() {
     return (
       <div className="text-editor">
         <h2>Quill Editor</h2>
+        <Link to="/returnNote">
+            <button>Save Note</button>
+        </Link>
         <ReactQuill theme="snow"
                     placeholder= "Write your notes here..."
                     modules={this.modules}
-                    formats={this.formats}>
+                    formats={this.formats}
+                    onChange={this.rteChange}
+                    >
         </ReactQuill>
       </div>
     );
