@@ -1,5 +1,7 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import axios from "axios";
 import '../../App.css';
 import './Editor.css';
 import ReactQuill from 'react-quill';
@@ -10,13 +12,55 @@ import 'katex/dist/katex.min.css';
 window.katex = katex;
 
 class Editor extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
-      text: "",
+      uploadSuccess: false,
+      newNoteId: "",
+      showError: false,
     }
-    this.rteChange = this.rteChange.bind(this);
+    this.quillRef = null;
+    this.reactQuillRef = null;
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.attachQuillRefs = this.attachQuillRefs.bind(this);
   }
+  
+  componentDidMount () {
+    this.attachQuillRefs()
+  }
+  
+  componentDidUpdate () {
+    this.attachQuillRefs()
+  }
+  
+  attachQuillRefs() {
+    if (typeof this.reactQuillRef.getEditor !== 'function') return;
+    if (this.quillRef != null) return;
+    const quillRef = this.reactQuillRef.getEditor();
+    if (quillRef != null) this.quillRef = quillRef;
+  }
+
+  handleSubmit(event){
+    event.preventDefault();
+    event.persist();
+    console.log(this.quillRef.getContents());
+    axios.post(process.env.REACT_APP_NOTE_API,
+      {
+        title: event.target.title.value,
+        //course_id: this.props.match.params.courseId
+        text: this.quillRef.getContents()
+      },
+      { headers: { Authorization: this.context.authToken } }
+              ).then(noteRes => {
+                this.setState({
+                uploadSuccess: true,
+                newNoteId: noteRes.data.note_id
+              });
+            }).catch(() => {
+              this.setState({ showError: true, uploadSuccess: false });
+            });
+  
+  } 
 
   modules = {
     toolbar: [
@@ -39,30 +83,47 @@ class Editor extends React.Component {
     'code-block',
     'link', 'image', 'formula'
   ]
-
-  // save delta object in deltaObj when user make change
-  rteChange = (content, delta, source, editor) => {
+  
+  /*= (content, delta, source, editor) => {
     var deltaObj = editor.getContents();
     console.log(deltaObj); // delta object
 		//console.log(editor.getHTML()); // rich text
 		//console.log(editor.getText()); // plain text
 		//console.log(editor.getLength()); // number of characters
 	}
+  */
 
-  // just need to save deltaObj in the database when the save button is pressed.
-  // now the save note button only return an html with sample delta object.
   render() {
+    let status;
+    if (this.state.showError) {
+      status = <p>Please log out and try again.</p>;
+    } else if (this.state.uploadSuccess) {
+      status = (
+        <p>
+          Note uploaded!<br/>
+          <a href={"/note/" + this.state.newNoteId}>Click here to view</a>
+        </p>
+      )
+    }
+
     return (
       <div className="text-editor">
         <h2>Quill Editor</h2>
-        <Link to="/returnNote">
-            <button>Save Note</button>
-        </Link>
-        <ReactQuill theme="snow"
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group>
+            <Form.Label>Title</Form.Label>
+            <Form.Control type="text" name="title" placeholder="Title" />
+          </Form.Group>
+            <button type="submit">Save Note</button>
+        </Form>
+        {status}
+        <ReactQuill ref={(el) => { this.reactQuillRef = el }}
+                    theme="snow"
                     placeholder= "Write your notes here..."
                     modules={this.modules}
                     formats={this.formats}
                     onChange={this.rteChange}
+                    defaultValue={this.state.editorHtml}
                     >
         </ReactQuill>
       </div>

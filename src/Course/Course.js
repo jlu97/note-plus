@@ -43,11 +43,11 @@ class Course extends React.Component {
   }
 
   render() {
-    const noteRows = this.state.courseNotes.map((noteId, index) => {
+    const noteRows = this.state.courseNotes.map(noteId => {
       return (
-        <tr key={index.toString()}>
+        <tr key={noteId}>
           <td>
-            <Link to={"/note/" + noteId}>{noteId}</Link>
+            <Link to={"/note/" + noteId.note_id}>{noteId.title}</Link>
           </td>
           <td>01/01/20</td>
           <td>Jayson Isaac</td>
