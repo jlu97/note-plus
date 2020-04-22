@@ -7,6 +7,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import AuthContext from "../AuthContext";
 
+function formatDate(date) {
+    if (date === undefined) return "";
+    const d = new Date(date);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Intl.DateTimeFormat('en-US', options).format(d).toString();
+}
+
 class Course extends React.Component {
   static contextType = AuthContext;
   constructor(props) {
@@ -43,13 +50,13 @@ class Course extends React.Component {
   }
 
   render() {
-    const noteRows = this.state.courseNotes.map((noteId, index) => {
+    const noteRows = this.state.courseNotes.map((note, index) => {
       return (
         <tr key={index.toString()}>
           <td>
-            <Link to={"/note/" + noteId}>{noteId}</Link>
+            <Link to={"/note/" + note.note_id}>{note.title}</Link>
           </td>
-          <td>01/01/20</td>
+          <td>{formatDate(note.created_at)}</td>
           <td>Jayson Isaac</td>
         </tr>
       );
