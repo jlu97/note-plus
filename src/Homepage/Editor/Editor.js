@@ -1,6 +1,6 @@
 import React from 'react';
-//import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
+import Button from 'react-bootstrap/Button';
 import axios from "axios";
 import '../../App.css';
 import './Editor.css';
@@ -47,7 +47,8 @@ class Editor extends React.Component {
     axios.post(process.env.REACT_APP_NOTE_API,
       {
         title: event.target.title.value,
-        //course_id: this.props.match.params.courseId
+        course_id: this.props.match.params.courseId,
+        //note_type: "text",
         text: this.quillRef.getContents()
       },
       { headers: { Authorization: this.context.authToken } }
@@ -111,10 +112,10 @@ class Editor extends React.Component {
         <h2>Quill Editor</h2>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
-            <Form.Label>Title</Form.Label>
-            <Form.Control type="text" name="title" placeholder="Title" />
+            <Form.Label>Note Title</Form.Label>
+            <Form.Control type="text" name="title" placeholder="Enter Title" />
           </Form.Group>
-            <button type="submit">Save Note</button>
+            <Button type="submit">Save Note</Button>
         </Form>
         {status}
         <ReactQuill ref={(el) => { this.reactQuillRef = el }}

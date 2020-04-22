@@ -25,8 +25,8 @@ class Reporting extends React.Component {
               {
                 reporter: event.target.reporter.value,
                 description: event.target.reason.value,
-                note_id: noteId,
-                status: "pending"
+                note_id: noteId
+                //status: "pending"
               }
               /*
               {

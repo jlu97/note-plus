@@ -72,6 +72,10 @@ class Course extends React.Component {
           <Link to="/upload">
             <Button>Upload Note</Button>
           </Link>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <Link to={"/editor/" + this.props.match.params.courseId}>
+            <Button>Editor</Button>
+          </Link>
           <br />
           <br />
 

@@ -79,9 +79,7 @@ class App extends React.Component {
               <Reporting />
             </PrivateRoute>
 
-            <PrivateRoute path="/editor">
-              <Editor />
-            </PrivateRoute>
+            <PrivateRoute path="/editor/:courseId" component={Editor} />
 
             <PrivateRoute path="/returnNote">
               <ReturnNote />
