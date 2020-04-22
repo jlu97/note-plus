@@ -7,6 +7,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import AuthContext from "../AuthContext";
 
+function formatDate(date) {
+    if (date === undefined) return "";
+    const d = new Date(date);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Intl.DateTimeFormat('en-US', options).format(d).toString();
+}
+
 class Course extends React.Component {
   static contextType = AuthContext;
   constructor(props) {
@@ -43,13 +50,13 @@ class Course extends React.Component {
   }
 
   render() {
-    const noteRows = this.state.courseNotes.map(noteId => {
+    const noteRows = this.state.courseNotes.map((note, index) => {
       return (
-        <tr key={noteId}>
+        <tr key={note.note_id}>
           <td>
-            <Link to={"/note/" + noteId.note_id}>{noteId.title}</Link>
+            <Link to={"/note/" + note.note_id}>{note.title}</Link>
           </td>
-          <td>01/01/20</td>
+          <td>{formatDate(note.created_at)}</td>
           <td>Jayson Isaac</td>
         </tr>
       );
@@ -64,12 +71,13 @@ class Course extends React.Component {
     } else if (this.state.showError) {
       return <p>Please logout and try again.</p>;
     } else {
+      const courseId = this.props.match.params.courseId;
       return (
         <div>
           <h1>{this.state.courseName}</h1>
           <h2>Notes</h2>
           <br />
-          <Link to="/upload">
+          <Link to={"/course/" + courseId + "/upload"}>
             <Button>Upload Note</Button>
           </Link>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -87,9 +95,7 @@ class Course extends React.Component {
                 <th>Author</th>
               </tr>
             </thead>
-            <tbody>
-              { noteRows }
-            </tbody>
+            <tbody>{noteRows}</tbody>
           </Table>
         </div>
       );

@@ -13,7 +13,6 @@ class Note extends React.Component {
     this.props = props;
     this.state = {
       title: "",
-      note_id: "",
       noteBody: [],
       showError: false,
       loading: true
@@ -40,7 +39,6 @@ class Note extends React.Component {
               this.setState({
                 showError: false,
                 loading: false,
-                note_id: noteId,
                 noteBody: this.state.noteBody.concat(
                   assetRes.data.asset_b64data
                 ),
@@ -74,13 +72,16 @@ class Note extends React.Component {
         />
       );
     });
+
+    const noteId = this.props.match.params.noteId;
+
     return (
       <div>
         <h1>{this.state.title}</h1>
         {noteBody}
         <br></br>
         <p>Report this note if you think it is inappropriate</p>
-        <Link to = {"/reporting/" + this.state.note_id}>
+        <Link to = {"/reporting/" + noteId}>
           <button class="report-button">Report</button>
         </Link>
       </div>

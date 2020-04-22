@@ -41,7 +41,7 @@ class SignedIn extends React.Component {
   render() {
     const favCourses = this.state.favCourses.map(fav => (
       <li key={fav.course_id}>
-        <Link to={"/course/" + fav.course_id}>{fav.course_id}</Link>
+        <Link to={"/course/" + fav.course_id}>{fav.course_name}</Link>
       </li>
     ));
 
