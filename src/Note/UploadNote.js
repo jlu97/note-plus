@@ -63,7 +63,8 @@ class UploadNote extends React.Component {
               {
                 title: event.target.title.value,
                 assets: [res.data.asset_id],
-                course_id: this.props.match.params.courseId
+                course_id: this.props.match.params.courseId,
+                note_type: "pdf"
               },
               { headers: { Authorization: this.context.authToken } }
             )
