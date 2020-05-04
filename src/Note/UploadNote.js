@@ -63,7 +63,8 @@ class UploadNote extends React.Component {
               {
                 title: event.target.title.value,
                 assets: [res.data.asset_id],
-                course_id: this.props.match.params.courseId
+                course_id: this.props.match.params.courseId,
+                note_type: "pdf"
               },
               { headers: { Authorization: this.context.authToken } }
             )
@@ -87,10 +88,10 @@ class UploadNote extends React.Component {
     } else if (this.state.uploadSuccess) {
       status = (
         <p>
-          Note uploaded!<br/>
+          Note uploaded!<br />
           <a href={"/note/" + this.state.newNoteId}>Click here to view</a>
         </p>
-      )
+      );
     } else if (this.state.progressBar.total > 0 && !this.uploadSuccess) {
       status = (
         <ProgressBar
